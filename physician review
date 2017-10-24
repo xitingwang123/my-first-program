@@ -1,0 +1,113 @@
+library("dplyr")
+library("fuzzyjoin")
+library("stringr")
+#read data
+load("reviews_panel_t8.rdata")
+load("doctors_panel_t8.rdata")
+load("doctors_list_panel_t8.rdata")
+x1=read.csv("1.csv")
+x3=read.csv("3.csv")
+x4=read.csv("4.csv")
+x5=read.csv("5.csv")
+
+doctor_list_t$href
+
+#a list combine the two dataframe
+doctors_list = doctor_list_t %>% select(href,name,address)
+doctors_review_all = merge(reviews_t, doctors_list, by = "href")
+
+#unique id create the doctor review
+doctors_review_all$uniqueID = paste(doctors_review_all$name,doctors_review_all$address)
+
+#cleaning the X1
+x_1= x1 %>% select(Thomas.Neil.Chisholm,X.71,Denver..Colo.)%>%rename(name1=Thomas.Neil.Chisholm, price = X.71, location1= Denver..Colo.)
+x_1$uniqueID1=paste(x_1$name1,x_1$location1)
+#remove ,
+doctors_review_all$uniqueID <- gsub(",","", doctors_review_all$uniqueID)
+
+#remove number from dotors_review_all$uniqueID
+doctors_review_all$uniqueID <-gsub("0","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("1","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("2","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("3","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("4","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("5","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("6","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("7","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("8","",doctors_review_all$uniqueID)
+doctors_review_all$uniqueID <-gsub("9","",doctors_review_all$uniqueID)
+
+#lower case to uppercase
+doctors_review_all$uniqueID <-toupper(doctors_review_all$uniqueID)
+
+#state name change
+x_1$uniqueID1
+x_1$uniqueID1 <- gsub(",","",x_1$uniqueID1)
+#x_1$uniqueID1 <- gsub(".","",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Calif.","CA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Mich.","MI",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("N.Y.","NY",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("N.J.","NJ",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Texas","TX",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Mo.","MO",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ariz.","AZ",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Conn.","CT",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("N.C.","NC",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("N.C.","NC",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Fla.","FLA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Tenn.","TN",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ky.","KY",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ill.","ILL",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Mass.","MA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Maine","ME",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ga.","GA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ind.","IND",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Pa.","PA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Wis.","WI",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Hawaii","HI",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Del.","DE",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Colo.","CO",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Okla.","OK",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ohio","OH",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ore.","ORE",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Miss.","MS",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("S.D.","SD",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Va.","VA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Md.","MD",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Nev.","NV",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("S.C.","SC",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("P.R.","PR",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("La.","LA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ala.","ALA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("MOt.","MT",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Minn.","MN",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("D.C.","DC",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("N.M.","NM",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("ALAka","AK",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Ark.","AR",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Wash.","WA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("R.I.","RI",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Neb.","NE",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("N.H.","NH",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Iowa","IA",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Kan.","KS",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Idaho","ID",x_1$uniqueID1)
+x_1$uniqueID1 <- gsub("Iwa","IA",x_1$uniqueID1)
+#remove the last 5 numerical
+str_sub(doctors_review_all$uniqueID,start = -5)
+str_sub(doctors_review_all$uniqueID,start = 1,nchar(doctors_review_all$uniqueID)-5)
+
+#select top 100data from doctors review match with the salaries
+d<-doctors_review_all[1:100,]
+a <- d %>% stringdist_left_join(x_1, by = c("uniqueID"="uniqueID1"), max_dist=7)
+d1<-doctors_review_all[2000:5000,]
+a1<-d1 %>% stringdist_left_join(x_1, by = c("uniqueID"="uniqueID1"), max_dist=8)
+
+
+
+
+
+
+
+
+
